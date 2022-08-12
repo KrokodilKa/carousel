@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+    <body>
+    <div id=a style="display: inline-flex;height: 729.1px;">
+
+    </div>
+        <script>
+            var img = new Image();
+            img.onload = function() {
+                let context = document.getElementById('canvas').getContext('2d');
+                context.drawImage(img, 0, 0, 7000, 600);
+                console.log(context)
+            }
+            img.src = 'https://downloader.disk.yandex.ru/preview/b1abc0ac13bc86d90b80e66af30c1731fc6c85507efe39b13f369c3e1196d8a2/62f708a2/NsmdZX0Vj8OKn1pnTUPwLhcUeFIn1eUfTidaKy23H8pEzdVupiPdHAZVXzc_Sp-1Z2N51n5jRAi0NIOU4GLK9w%3D%3D?uid=0&filename=FotoBKL_VERNAD.jpg&disposition=inline&hash=&limit=0&content_type=image%2Fjpeg&owner_uid=0&tknv=v2&size=1600x744';
+
+        </script>
+    </body>
+</html>

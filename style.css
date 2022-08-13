@@ -1,0 +1,24 @@
+body {
+    margin: 0;
+}
+#carousel {
+    width: 100vw;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    border:solid 1px black;
+    overflow: hidden;
+}
+#stock {
+    height: 500px;
+    position: relative;
+    /*width: 90%;*/
+    border:solid 1px blue;
+    display: inline-flex;
+}
+.blackBlind {
+    min-width: 100px;
+    height: 100%;
+    background-color: black;
+}
+.mouseUp

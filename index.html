@@ -9,11 +9,69 @@
     <title>Document</title>
 </head>
     <body>
+    <div id="arrow"></div>
         <section id="carousel">
             <div id="stock" style="left: 0px">
+                <div class="blackBlind"></div>
+                <img id="current"/>
+                <div class="blackBlind"></div>
             </div>
         </section>
+        <section id="scheme">
+<!--            <div id="namesContainer" style="left: 0px">-->
+<!--            </div>-->
+<!--            <div id="wayContainer" style="left: 0px">-->
+<!--            </div>-->
+        </section>
         <button id="btn">отладка</button>
+
+        <script>
+            const carousel = document.getElementById("carousel")
+            const stock = document.getElementById("stock")
+            const btn = document.getElementById("btn")
+            const scheme = document.getElementById("scheme")
+            const arrow = document.getElementById("arrow")
+
+            //Мы не можем прокрутить дальше высчитанного значения
+            let leftStop
+            let rightStop
+            // Захват говорит о том, что сейчас отображается чёрная шторка и грузится картинка. Значит нам нужно сохранить значение скорости и не трогать его.
+            let capture = false
+
+            let focusLine
+            let stopWidth = 0
+            const stationslist = [
+                {
+                    name: "Мичуринский проспект",
+                    img: "./images/0.jpg",
+                },
+                {
+                    name: "Проспект Вернадского",
+                    img: "./images/1.jpg"
+                },
+                {
+                    name: "Воронцовская",
+                    img: "./images/2.jpg"
+                },
+                {
+                    name: "Зюзино",
+                    img: "./images/3.jpg"
+                }
+            ]
+
+            function getStopWidth () {
+                let stopWidth = Math.floor(Number(stock.style.width.slice(0, -2)) / 2) - Math.floor(carousel.offsetWidth / 2)
+                leftStop = stopWidth
+                rightStop = -1 * stopWidth
+            }
+            function setStockWidth () {
+                let current = document.getElementById("current")
+                stock.style.width = (current.offsetWidth + (2 * document.getElementsByClassName("blackBlind")[0].offsetWidth)) + "px"
+            }
+
+        </script>
+        <script src="./listeners.js"></script>
+        <script src="./scheme.js"></script>
         <script src="./first.js"></script>
     </body>
 </html>

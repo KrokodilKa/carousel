@@ -3,31 +3,36 @@ let speed = 0
 let valueTouch = 0
 
 let timerId = setInterval(() => {
+    // console.log("speed")
+    // console.log(speed)
     //Невыполнять функцию нужно при маленькой скорости
     //Или при большой скорости, но ожидании подгрузки изображения
     if (Math.abs(speed) > 3 && !capture) {
         let newSpeed = Math.round(speed * 0.8)
-        let newLeft = Number(stock.style.left.slice(0, -2)) + newSpeed * 5 + "px"
+        let newLeft = Number(stock.style.left.slice(0, -2)) + newSpeed * 5
+
         //Проверяем, что не выходим за рамки
-        console.log("newLeft")
-        console.log(newLeft)
-        console.log("newLeft")
-        console.log(newLeft)
         if (leftStop > Math.abs(newLeft)) {
             console.log("моня")
                 speed = newSpeed
                 stock.style.left = newLeft + "px"
         } else {
             console.log("низя")
+            console.log(speed)
             //Если хотели подставить значение выше leftStop - ставим выше (0), иначе ниже
             stock.style.left = Math.sign(newLeft) > 0 ? leftStop + "px" : rightStop + "px"
+            //И начинаем перевызов картинки соседней
+            setNewNumberOfStation(-1 * Math.sign(speed))
+            // speed = 0
         }
+        setPointer()
     }
 
 }, 30);
 
 //Скорость - затухающее значение, показывающее на сколько в конкретный кадр должно произойти движение
 function makeSpeed (value) {
+    //capture true заявляет, что идёт процесс смены картинки
     if (!capture) {
         if (event.type === "wheel") {
             speed = speed + (Math.sign(event.wheelDelta) * 40)
@@ -84,6 +89,10 @@ window.addEventListener("touchend", (event) => {
 
 carousel.addEventListener("resizeend", getStopWidth)
 
-function setArrow () {
-    let elements = document.querySelectorAll('ul > li:last-child');
+function setPointer () {
+    //Получаем кооэфициенты на сколько сдвигать left указателя при изменении left stock
+    let k = Math.round(Number(stock.style.width.slice(0, -2)) / 25)
+    let a = 6 * Math.round(Number(stock.style.left.slice(0, -2)) / k)  * -1 + 65 +"px"
+    pointer.style.left = a
+
 }

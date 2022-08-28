@@ -1,10 +1,34 @@
+const sizes = {
+    "320-480": {
+        lh: "",
+        lw: "",
+        count: 0,
+        leftPadding: 0,
+        mejdy: 0
+    },
+    "480-640": {
+
+    },
+    "640-980": {
+
+    },
+    "980-1200": {
+
+    },
+    "1200-1600": {
+
+    },
+    "1600+": {
+
+    }
+}
 
 for (let i = 0; i < stationslist.length; i++) {
     const station = stationslist[i];
     let stationDOM = `
             <div class="stationContainer ${i === 0 ? "focus" : ""}">
-                <div class="way" style="display: inline-flex ">
-<!--                    <div class="wayLine"</div>-->
+                <div class="way">
+                <div class="pointer" style="left: 62px"></div>
                 </div>
                 <h6>${station.name}</h6>
             </div>
@@ -17,14 +41,7 @@ for (let i = 0; i < stationslist.length; i++) {
     for (let it = 0; it < 25; it ++) {
         a.insertAdjacentHTML("beforeend", `<div style=\" width: 1px; height: 12px; background-color: white; margin: 0 2px \"></div>`)
     }
-
-    // $station.on('click', (e) => {
-    //     if ( bgIsAnimate() ) { //Запрещено переключать станции пока анимации не закончатся
-    //         if ($(e.currentTarget).attr('data-index') != currentIndex) {
-    //             const oldIndex = currentIndex
-    //             currentIndex = $(e.currentTarget).attr('data-index')
-    //             changeVisual(oldIndex)
-    //         }
-    //     }
-    // });
 }
+
+pointer = document.querySelectorAll(".focus .pointer")[0]
+console.log(pointer)

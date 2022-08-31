@@ -5,6 +5,13 @@ src: url("./otf/MoscowSansLight.otf") format("truetype");
     font-style: normal;
     font-weight: normal;
 }
+@font-face {
+    font-family: "fontReg";
+    src: url("./old/MoscowSansRegular.woff") format("truetype");
+    src: url("./otf/MoscowSansRegular.otf") format("truetype");
+    font-style: normal;
+    font-weight: normal;
+}
 *{
     font-family: font;
     color: white;
@@ -131,4 +138,88 @@ img { pointer-events: none; }
 .curAll{
     animation-duration: 0.5s;
     animation-name: toall;
+}
+#information{
+    position: absolute;
+    left: 400px;
+    top: 600px;
+    display: flex;
+    align-items: center;
+    width: 304px;
+}
+#informationPapa{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: min-content;
+    margin-right: 20px;
+}
+#top{
+    position: absolute;
+    width: 10px;
+    animation-duration: 4s;
+    animation-name: arrowRotateTop;
+    animation-iteration-count: infinite;
+}
+#mouse{
+    height: 32px;
+    margin: 7px 0;
+}
+#bottom{
+    position: absolute;
+    transform: rotate(180deg) scale(1) translate(0, 0);
+    animation-duration: 4s;
+    animation-name: arrowRotateBottom;
+    animation-iteration-count: infinite;
+    width: 10px;
+}
+
+#information span{
+    font-family: fontReg;
+    font-size: 14px;
+}
+@media screen and (max-width: 960px){
+    #information{
+        display: none;
+    }
+}
+@keyframes arrowRotateTop {
+    0% {
+        top: -10px;
+    }
+    10% {
+        top: -5px;
+    }
+    20%  {
+        top: -10px;
+    }
+    30% {
+        top: -5px;
+    }
+    40% {
+        top: -10px;
+    }
+    100% {
+        top: -10px;
+    }
+}
+@keyframes arrowRotateBottom {
+    0% {
+        bottom: -10px;
+    }
+    10% {
+        bottom: -5px;
+    }
+    20%  {
+        bottom: -10px;
+    }
+    30% {
+        bottom: -5px;
+    }
+    40% {
+        bottom: -10px;
+    }
+    100% {
+        bottom: -10px;
+    }
 }

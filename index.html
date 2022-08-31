@@ -16,67 +16,255 @@
                 <div class="blackBlind"></div>
             </div>
         </section>
-        <section id="scheme"></section>
-        <button style="display: none" id="btn">отладка</button>
-        <h3 style="display: none" id="indicator">картинка загружена</h3>
+        <section id="scheme">
+            <div id="schemeScroll"></div>
+        </section>
+        <h4 id="currentStation">Мичуринская</h4>
+        <section id="papa">
+            <div id="bgc">
+
+            </div>
+            <div id="splash">
+                <div class="loading"></div>
+            </div>
+        </section>
 
         <script>
             //Запретить браузерам захватывать картинку мышью (тапом) и перетаскивать её.
             document.getElementById("img").onmousedown = e => e.preventDefault()
             document.getElementById("img").ontouchstart = e => e.preventDefault()
 
-            let current = 0
-
             const carousel = document.getElementById("carousel")
             const stock = document.getElementById("stock")
             const btn = document.getElementById("btn")
-            const scheme = document.getElementById("scheme")
-            let pointer
+            const image = document.getElementById("image")
+            const schemeScroll = document.getElementById("schemeScroll")
 
             //Мы не можем прокрутить дальше высчитанного значения
             let leftStop
             let rightStop
             // Захват говорит о том, что сейчас отображается чёрная шторка и грузится картинка. Значит нам нужно сохранить значение скорости и не трогать его.
             let capture = false
-            let canChangeImg = true
 
-            let focusLine
-            let stopWidth = 0
+            let widthWindow = Number(window.innerWidth)
+            let sizeOfStation = 0
+            let countStationsOfWindow
             const stationslist = [
                 {
                     name: "Мичуринский проспект",
-                    img: "./images/0.jpg",
+                    img: "./images/Michurinskii.jpg",
                 },
                 {
                     name: "Проспект Вернадского",
-                    img: "./images/1.jpg"
+                    img: "./images/Vernadskii.jpg",
+                },
+                {
+                    name: "Новаторская",
+                    img: "./images/Novatorskaya.jpg",
                 },
                 {
                     name: "Воронцовская",
-                    img: "./images/2.jpg"
+                    img: "./images/Voroncovskaya.jpg",
                 },
                 {
                     name: "Зюзино",
-                    img: "./images/3.png"
+                    img: "./images/Zuzino.jpg",
+                },
+                {
+                    name: "Каховская",
+                    img: "./images/Kahovskaya.jpg",
+                },
+                {
+                    name: "Варшавская",
+                    img: "./images/Varshavskaya.jpg",
+                },
+                {
+                    name: "Каширская",
+                    img: "./images/Kashirskaya.jpg",
+                },
+                {
+                    name: "Кленовый бульвар",
+                    img: "./images/Klenovii.jpg",
+                },
+                {
+                    name: "Затон",
+                    img: "./images/Nagatinskii_zaton.jpg",
+                },
+
+                {
+                    name: "Печатники",
+                    img: "./images/Pechatniki.jpg",
+                },
+                {
+                    name: "Текстильщики",
+                    img: "./images/Tekstilschiki.jpg",
+                },
+                {
+                    name: "Нижегородская",
+                    img: "./images/Nizhegorodskaya.jpg",
+                },
+                {
+                    name: "Авиамоторная",
+                    img: "./images/Aviamotornaya.jpg",
+                },
+                {
+                    name: "Лефортово",
+                    img: "./images/Lefortovo.jpg",
+                },
+                {
+                    name: "Электрозаводская",
+                    img: "./images/Electrozavodskaya.jpg",
+                },
+                {
+                    name: "Сокольники",
+                    img: "./images/Sokolniki.jpg",
+                },
+                {
+                    name: "Рижская",
+                    img: "./images/Rizskaya.jpg",
+                },
+                {
+                    name: "Марьина Роща",
+                    img: "./images/Maryina_roscha.jpg",
+                },
+                {
+                    name: "Савёловская",
+                    img: "./images/Nagatinskii_zaton.jpg",
+                },
+                {
+                    name: "Петровский парк",
+                    img: "./images/Petrovskii_park.jpg",
+                },
+                {
+                    name: "ЦСКА",
+                    img: "./images/CSKA.jpg",
+                },
+                {
+                    name: "Хорошёвская",
+                    img: "./images/Khoroshovo.jpg",
+                },
+                {
+                    name: "Шелепиха",
+                    img: "./images/Shelepiha.jpg",
+                },
+                {
+                    name: "Деловой центр",
+                    img: "./images/Delovoi_centr.jpg",
+                },
+                {
+                    name: "Народное Ополчение",
+                    img: "./images/Narodnoe_opolchenie.jpg",
+                },
+                {
+                    name: "Мнёвники",
+                    img: "./images/Mnevniki.jpg",
+                },
+                {
+                    name: "Терехово",
+                    img: "./images/Terekhovo.jpg",
+                },
+                {
+                    name: "Кунцевская",
+                    img: "./images/Kuncevskaya.jpg",
+                },
+                {
+                    name: "Давыдково",
+                    img: "./images/Davidkovo.jpg",
+                },
+                {
+                    name: "Аминьевская",
+                    img: "./images/Aminkevskaya.jpg",
+                },
+            ]
+            const sizes = [
+                {
+                    lh: 16,
+                    lw: 1,
+                    count: 32,
+                    leftPadding: 19,
+                    between: 12,
+                    width: 150
+                },
+                {
+                    lh: 16,
+                    lw: 1,
+                    count: 32,
+                    leftPadding: 22,
+                    between: 8,
+                    width: 288
+
+                },
+                {
+                    lh: 16,
+                    lw: 1,
+                    count: 26,
+                    leftPadding: 34,
+                    between: 12,
+                    width: 338
+
+                },
+                {
+                    lh: 16,
+                    lw: 1,
+                    count: 22,
+                    leftPadding: 50,
+                    between: 16,
+                    width: 374
+
+                },
+                {
+                    lh: 16,
+                    lw: 1,
+                    count: 26,
+                    leftPadding: 50,
+                    between: 16,
+                    width: 442
+
+                },
+                {
+                    lh: 24,
+                    lw: 2,
+                    count: 21,
+                    leftPadding: 68,
+                    between: 24,
+                    width: 546
+
                 }
             ]
+
+            let current = 0
+            let nextSt = 1
+            let postSt = stationslist.length - 1
+
 
             function getStopWidth () {
                 let stopWidth = Math.floor(Number(stock.style.width.slice(0, -2)) / 2) - Math.floor(carousel.offsetWidth / 2)
                 leftStop = stopWidth
                 rightStop = -1 * stopWidth
-                console.log(leftStop)
-                console.log(rightStop)
+                widthWindow = Number(window.innerWidth)
+                if (320 <= widthWindow && widthWindow <= 480) {
+                    sizeOfStation = 0
+                } else if (480 <= widthWindow && widthWindow <= 640) {
+                    sizeOfStation = 1
+                } else if (640 <= widthWindow && widthWindow <= 980) {
+                    sizeOfStation = 2
+                } else if (980 <= widthWindow && widthWindow <= 1200) {
+                    sizeOfStation = 3
+                } else if (1200 <= widthWindow && widthWindow <= 1600) {
+                    sizeOfStation = 4
+                } else if (widthWindow > 1600) {
+                    sizeOfStation = 5
+                }
+                countStationsOfWindow = Math.floor(widthWindow / sizes[sizeOfStation].width) + 2
+                // createStations()
             }
             function setStockWidth () {
                 let current = document.getElementById("img")
                 stock.style.width = (current.offsetWidth + (2 * document.getElementsByClassName("blackBlind")[0].offsetWidth)) + "px"
             }
             function createImage () {
-                console.log("вызывается новая картинка. курент " + current)
                 //Подгружает нужную картинку и ставит в тег img
                 capture = true
-                document.getElementById("indicator").textContent = "грузится картинка"
                 let img = new Image();
                 img.onload = function() {
                     img.setAttribute(
@@ -88,18 +276,15 @@
                     );
                     //Смена картинки происходит ТОЛЬКО когда значение left === stopValue
                     if (leftStop === Math.abs(Number(stock.style.left.slice(0, -2)))) {
-                        console.log("мы находимся у края")
                         let end
                         if (Number(stock.style.left.slice(0, -2)) == leftStop) {
                             end = "right"
                         }
-                        console.log(leftStop === Math.abs(Number(stock.style.left.slice(0, -2))))
                         document.getElementById("img").src = img.src
                         setStockWidth ()
                         getStopWidth ()
                         if (end == "right") {
                             //Мы были слева - подгрузим нас справа
-                            console.log("Я гружу вас справа. С отрицательным значением " + rightStop)
                             stock.style.left = rightStop + 5 + "px"
                         } else {
                             //Мы были справа - подгрузим нас слева
@@ -107,20 +292,16 @@
                         }
                     }
                     capture = false
-                    document.getElementById("indicator").textContent = "картинка загружена"
                 }
                 img.src = stationslist[current].img;
             }
+
             function setNewNumberOfStation (symbol) {
                 //Проверяем нужно ли нам сделать переход по разрыву в кольце станций (разрыв - переход от начала к концу)
-                console.log("symbol")
-                console.log(symbol)
                 if (symbol == "1") {
                     if (current + 1 > stationslist.length - 1) {
-                        console.log(current + 1 > stationslist.length - 1)
                         current = 0
                     } else {
-                        console.log("pluse")
                         current = current + 1
                     }
                 } else if (symbol == "-1") {
@@ -130,14 +311,134 @@
                         current = current - 1
                     }
                 }
-                console.log(current)
+                    if (current + 1 > stationslist.length - 1) {
+                        nextSt = 0
+                    } else {
+                        nextSt = current + 1
+                    }
+                    if (current === 0) {
+                        postSt = stationslist.length - 1
+                    } else {
+                        postSt = current - 1
+                    }
                 createImage()
+                createStations()
             }
 
+            function createStation (id) {
+                let div = document.createElement('div');
+                let way = document.createElement('div');
+                div.id = id
+                div.className = "stationContainer"
+                way.className = "way"
 
+                div.append(way)
+                div.insertAdjacentHTML('beforeend', `<h6 class="stationName">${stationslist[id].name}</h6>`);
+
+                for (let i = 0; i < sizes[sizeOfStation].count; i ++) {
+                    way.insertAdjacentHTML("beforeend", `<div style= \"width: ${sizes[sizeOfStation].lw + "px"};
+                        height: ${sizes[sizeOfStation].lh + "px"};
+                        background-color: white;
+                        margin-right: ${sizes[sizeOfStation].between + "px"};
+                        \"><div>`)
+                    way.children[i].children[0].remove()
+                }
+
+                if (id === current) {
+                    div.children[1].style.opacity = 0
+                }
+
+                return div
+            }
+            function createStations () {
+                schemeScroll.innerHTML = ""
+                // schemeScroll.style.left = `-${sizes[sizeOfStation].width}px`
+                let cur = document.getElementById("currentStation")
+                // cur.style.opacity = 1
+                // for (let i = 0; 10 > i; i++) {
+                //     cur.style.opacity = cur.style.opacity - 0.01
+                // }
+                cur.className = "curNul"
+                let b = setTimeout(() => {
+                    cur.innerText = stationslist[current].name
+                    cur.className = "curAll"
+                    clearTimeout(b)
+                }, 500)
+
+                // for (let i = 0; 100 > i; i++) {
+                //     cur.style.opacity = cur.style.opacity + 0.01
+                // }
+                //Мы должны отрендерить станции от "текущая - 1" до "текущая + (общее количество - 2)"
+                let info = []
+
+                let overflowCounter = 0
+                //станция current - 1
+                if (current - 1 == -1) {
+                    info.push(stationslist.length - 1)
+                } else {
+                    info.push(current - 1)
+                }
+
+                info.push(current)
+
+                if (widthWindow > 480) {
+                    for (let i = 0; i <= countStationsOfWindow - 2; i++) {
+                        if (current + i + 1 <= stationslist.length - 1) {
+                            info.push(current + i + 1)
+                        } else {
+                            info.push(overflowCounter)
+                            overflowCounter++
+                        }
+                    }
+                }
+                if (widthWindow <= 480) {
+                    for (let i = 0; i <= 3; i++) {
+                        if (current + i + 1 <= stationslist.length - 1) {
+                            info.push(current + i + 1)
+                        } else {
+                            info.push(overflowCounter)
+                            overflowCounter++
+                        }
+                    }
+                }
+
+                info.forEach((e) => {
+                    schemeScroll.append(createStation(e))
+                })
+                document.getElementById(postSt).children[1].style.opacity = 0
+
+                let all =  document.querySelectorAll(".way *")
+                let result = []
+                for (let i = 0; 70 > i; i++) {
+                    let left = all[i].getBoundingClientRect().left
+                    if (left >= 61.27 && left <= 138.73) {
+                        result.push(all[i])
+                    } else {
+                        all[i].style.height = sizes[sizeOfStation].lh + "px"
+                    }
+                }
+                result.forEach(e => {
+                    let x = e.getBoundingClientRect().left
+                    let y = Number((getHeight(x) - 20) * -1) + "px"
+                    e.style.height = y
+                })
+
+                let a = setTimeout(() => {
+                    cur.className = ""
+                    clearTimeout(a)
+                }, 1000)
+            }
+
+            document.addEventListener("DOMContentLoaded", () => {
+                setTimeout(() => {
+                    document.getElementById("papa").remove()
+                }, 2000)
+            }, {once:true});
+            function getHeight (x) {
+                return 0.01 * Math.pow(Number(x) - 100, 2) - 15
+            }
         </script>
         <script src="./listeners.js"></script>
-        <script src="./scheme.js"></script>
         <script src="./first.js"></script>
     </body>
 </html>

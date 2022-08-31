@@ -1,3 +1,18 @@
+@font-face {
+font-family: "font";
+src: url("./old/MoscowSansLight.woff") format("truetype");
+src: url("./otf/MoscowSansLight.otf") format("truetype");
+    font-style: normal;
+    font-weight: normal;
+}
+*{
+    font-family: font;
+    color: white;
+    font-size: 18px;
+}
+h6{
+    margin: 0;
+}
 body {
     margin: 0;
 }
@@ -7,15 +22,12 @@ img { pointer-events: none; }
     position: relative;
     display: flex;
     justify-content: center;
-    /*border:solid 1px black;*/
     overflow: hidden;
     cursor: pointer;
 }
 #stock {
     height: 100vh;
     position: relative;
-    /*width: 90%;*/
-    /*border:solid 1px blue;*/
     display: inline-flex;
 }
 .blackBlind {
@@ -26,16 +38,17 @@ img { pointer-events: none; }
 #scheme {
     width: 100vw;
     height: 100px;
-    background: linear-gradient(#2c2c2c 25%, rgba(0, 0, 0, 0));
-    display: inline-flex;
+    background: linear-gradient(#1D2129 35%, rgba(0, 0, 0, 0));
     cursor: pointer;
     overflow: hidden;
     position: absolute;
     top: 0;
 }
-.stationContainer {
-    padding: 10px;
-    border:solid 1px black;
+#schemeScroll {
+    display: inline-flex;
+    position: relative;
+    align-items: center;
+    margin-top: 24px;
 }
 .way {
     position: relative;
@@ -46,15 +59,76 @@ img { pointer-events: none; }
     background-color: white;
     height: 2px;
 }
-.pointer {
-    width: 20px;
-    height: 20px;
+#currentStation {
     position: absolute;
-    opacity: 0.8;
-    background-color: blue;
-    display: none;
+    top: 40px;
+    left: 100px;
+    font-size: 21px;
 }
-.focus .pointer {
-    background-color: black;
-    display: inherit;
+#splash {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 400px;
+    height: 400px;
+    margin: auto;
+    z-index: 2;
+    background-color: #1D2129;
+}
+#bgc {
+    background-color: #1D2129;
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+@media screen and (max-width: 480px){
+    #splash {
+        width: 300px;
+        height: 300px;
+    }
+}
+.loading {
+    width: 100%;
+    height: 100%;
+    background: url('https://coddmac.store/BKL/loader/loader.gif') no-repeat;
+    background-size: contain;
+
+}
+.stationContainer {
+    height: 43px;
+}
+@keyframes tonul {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+@keyframes toall {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+.curNul{
+    animation-duration: 0.5s;
+    animation-name: tonul;
+}
+.curAll{
+    animation-duration: 0.5s;
+    animation-name: toall;
 }
